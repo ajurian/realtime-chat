@@ -28,7 +28,8 @@
         "noFallthroughCasesInSwitch": true
     },
     "include": [
-        "src"
+        "src",
+        "env.d.ts"
     ],
     "references": [
         {

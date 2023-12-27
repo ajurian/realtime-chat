@@ -110,10 +110,11 @@ export default function Home({ setUser }: HomeProps) {
                 <Box
                     component="form"
                     sx={{
-                        display: "grid",
-                        gridTemplateRows: "1fr 1fr",
-                        gridTemplateColumns: "repeat(3, 8rem)",
+                        display: "flex",
+                        flexWrap: "wrap",
+                        maxWidth: "24rem",
                         gap: 4,
+                        p: 4,
                         mt: 2,
                     }}
                     onSubmit={joinRoom}
@@ -124,7 +125,7 @@ export default function Home({ setUser }: HomeProps) {
                         onChange={(e) =>
                             setUsernameInput(e.currentTarget.value)
                         }
-                        sx={{ gridColumn: "1 / -1" }}
+                        sx={{ flexGrow: 1 }}
                     />
                     <Autocomplete
                         freeSolo
@@ -132,10 +133,14 @@ export default function Home({ setUser }: HomeProps) {
                         value={roomInput}
                         options={options}
                         placeholder="Room"
-                        onInputChange={(e, value) => setRoomInput(value)}
-                        sx={{ gridColumn: "1 / -2" }}
+                        onInputChange={(_, value) => setRoomInput(value)}
+                        sx={{ flexGrow: 1 }}
                     />
-                    <Button type="submit" disabled={!isConnected}>
+                    <Button
+                        type="submit"
+                        disabled={!isConnected}
+                        sx={{ flexGrow: 1 }}
+                    >
                         Join
                     </Button>
                 </Box>

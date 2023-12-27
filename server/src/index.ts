@@ -1,5 +1,6 @@
 import express from "express";
 import { createServer } from "http";
+import parseArgs from "minimist";
 import { Server } from "socket.io";
 import { ZodError } from "zod";
 import {
@@ -9,13 +10,16 @@ import {
 } from "./schema";
 import { EmitEvents, ListenEvents, Message, User } from "./types";
 
-const PORT = 3001;
+const args = parseArgs(process.argv);
+const port = args.port ?? 8080;
+const portOrigin = args.portOrigin ?? 3000;
+
 const app = express();
 const server = createServer(app);
 const io = new Server<ListenEvents, EmitEvents, ListenEvents, User | null>(
     server,
     {
-        cors: { origin: ["http://localhost:5173"] },
+        cors: { origin: [`http://localhost:${portOrigin}`] },
     }
 );
 
@@ -165,6 +169,6 @@ app.get("/api/getRooms", async (req, res) => {
     }
 });
 
-server.listen(PORT, () => {
-    console.log("Listening on port", PORT);
+server.listen(port, () => {
+    console.log("Listening on port", port);
 });
