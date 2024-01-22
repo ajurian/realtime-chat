@@ -2,15 +2,14 @@ import Home from "@/pages/Home";
 import Room from "@/pages/Room";
 import socket from "@/socket";
 import { User } from "@/types";
+import checkConnection from "@/utils/checkConnection";
 import { useEffect, useState } from "react";
 
 function App() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        if (!socket.connected) {
-            socket.connect();
-        }
+        checkConnection(socket);
 
         const onConnect = () => {
             console.log(socket.id);

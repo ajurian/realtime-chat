@@ -1,6 +1,7 @@
 import FormContainer from "@/pages/Home/FormContainer";
 import socket from "@/socket";
 import { ListenEvents } from "@/types";
+import checkConnection from "@/utils/checkConnection";
 import { Autocomplete, Box, Button, Input, Sheet, Typography } from "@mui/joy";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -24,9 +25,7 @@ export default function Home({ setUser }: HomeProps) {
     };
 
     useEffect(() => {
-        if (!socket.connected) {
-            socket.connect();
-        }
+        checkConnection(socket);
 
         const source = axios.CancelToken.source();
 
